@@ -16,42 +16,54 @@ cursor = connection.cursor()
 
 # How many total Characters are there?
 query = "SELECT COUNT(distinct character_id) FROM charactercreator_character"
+print(cursor.execute(query).fetchall()[0][0])
 
 # How many of each specific subclass?
-query = "SELECT COUNT(distinct character_ptr_id) FROM charactercreator_mage"
+query1 = "SELECT COUNT(distinct character_ptr_id) FROM charactercreator_mage"
+print(cursor.execute(query1).fetchall()[0][0])
 
-query = "SELECT COUNT(distinct mage_ptr_id) FROM charactercreator_necromancer"
+query2 = "SELECT COUNT(distinct mage_ptr_id) FROM charactercreator_necromancer"
+print(cursor.execute(query2).fetchall()[0][0])
 
-query = "SELECT COUNT(distinct character_ptr_id) FROM charactercreator_fighter"
+query3 = "SELECT COUNT(distinct character_ptr_id) FROM charactercreator_fighter"
+print(cursor.execute(query3).fetchall()[0][0])
 
-query = "SELECT COUNT(distinct character_ptr_id) FROM charactercreator_cleric"
+query4 = "SELECT COUNT(distinct character_ptr_id) FROM charactercreator_cleric"
+print(cursor.execute(query4).fetchall()[0][0])
 
-query = "SELECT COUNT(distinct character_ptr_id) FROM charactercreator_thief"
+query5 = "SELECT COUNT(distinct character_ptr_id) FROM charactercreator_thief"
+print(cursor.execute(query5).fetchall()[0][0])
 
 # How many total Items?
-query = "SELECT COUNT(distinct item_id) FROM armory_item"
+query6= "SELECT COUNT(distinct item_id) FROM armory_item"
+print(cursor.execute(query6).fetchall()[0][0])
 
 # How many of the Items are weapons? How many are not?
-query = "SELECT COUNT(item_ptr_id) as weapons_count FROM armory_weapon"
+query7 = "SELECT COUNT(item_ptr_id) as weapons_count FROM armory_weapon"
+print(cursor.execute(query7).fetchall()[0][0])
 
 # How many Items does each character have? (Return first 20 rows)
-query = "SELECT character_id,item_id FROM charactercreator_character_inventory LIMIT 20"
+query8 = "SELECT character_id,item_id FROM charactercreator_character_inventory LIMIT 20"
+print(cursor.execute(query8).fetchall()[0][0])
 
 # How many Weapons does each character have? (Return first 20 rows)
-query = "SELECT character_id ,count(distinct item_id) as weapons_count FROM charactercreator_character_inventory WHERE item_id IN (SELECT distinct item_ptr_id FROM armory_weapon) GROUP BY character_id LIMIT 20"
+query9 = "SELECT character_id ,count(distinct item_id) as weapons_count FROM charactercreator_character_inventory WHERE item_id IN (SELECT distinct item_ptr_id FROM armory_weapon) GROUP BY character_id LIMIT 20"
+print(cursor.execute(query9).fetchall()[0][0])
 
 # On average, how many Items does each Character have?
-query = "SELECT ccc.character_id ,AVG(cinv.item_id) as items FROM charactercreator_character ccc LEFT JOIN charactercreator_character_inventory cinv ON ccc.character_id = cinv.character_id"
+query_10 = "SELECT ccc.character_id ,AVG(cinv.item_id) as items FROM charactercreator_character ccc LEFT JOIN charactercreator_character_inventory cinv ON ccc.character_id = cinv.character_id"
+print(cursor.execute(query_10).fetchall()[0][0])
 
 # On average, how many Weapons does each character have?
-query = "SELECT character_id ,count(item_id) as items FROM charactercreator_character_inventory WHERE item_id IN (SELECT distinct item_ptr_id from armory_weapon) GROUP BY character_id"
+query_11 = "SELECT character_id ,count(item_id) as items FROM charactercreator_character_inventory WHERE item_id IN (SELECT distinct item_ptr_id from armory_weapon) GROUP BY character_id"
+print(cursor.execute(query_11).fetchall()[0][0])
 
 #result = cursor.execute(query)
 #print("RESULT", result) #> returns cursor object w/o results (need to fetch the results)
 
-result3 = cursor.execute(query).fetchone()
-print("RESULT 3", type(result3), result3)
+# result3 = cursor.execute(query).fetchone()
+# print("RESULT 3", type(result3), result3)
 
-for row in result3:
-    print(type(row), row)
+# for row in result3:
+#     print(type(row), row)
 
